@@ -305,6 +305,74 @@ export const messageMap = {
       ],
     },
   }),
+  '名刺': () => ({
+    type: 'flex',
+    altText: 'Flex Message',
+    contents: {
+        "type": "bubble",
+        "header": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "ひきがえる",
+              "color": "#FFFFFF"
+            }
+          ]
+        },
+        "hero": {
+          "type": "image",
+          "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+          "size": "xl"
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "hello, world"
+                },
+                {
+                  "type": "separator",
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "datetimepicker",
+                    "label": "action",
+                    "data": "hello",
+                    "mode": "date"
+                  },
+                  "style": "link"
+                }
+              ]
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "hello, world"
+                }
+              ]
+            }
+          ]
+        },
+        "styles": {
+          "header": {
+            "backgroundColor": "#00B900"
+          }
+        }
+      }
+  }),
   'Flex Message': () => ({
     type: 'flex',
     altText: 'Flex Message',
