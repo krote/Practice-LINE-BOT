@@ -34,10 +34,39 @@ export const webhookHandler = async (event) => {
     if (!verifySignature(event)) return response;
 
     // DynamoDB Document Client のインスタンスを生成
-    const dynamoDBDocument = new DynamoDB.DocumentClient();
+    const dynamoDocument = new DynamoDB.DocumentClient();
 
     // DynamoDBのContextを作成
-    const dynamoDBContext = new DynamoDbContext(dynamoDBDocument);
+    const dynamoDBContext = new DynamoDbContext(dynamoDocument);
+
+    // bot-sdkのクライアントを作成
+    const lineClient = new line.Client({
+        channelAccessToken: CHANNEL_ACCESS_TOKEN,
+    });
+
+    // ファイルのダウンローダーを作成
+    const contentFileDownloader = saveContentFileToS3DownloadDir;
+
+    // S3のクライアントを作成
+    const s3Client = new aws.S3();
+
+    // AppContextを作成
+    const appContext = new AppContext({
+        dynamoDBContext,
+        lineClient,
+        contentFileDownloader,
+        s3Client,
+    });
+
+    // エラーハンドリング
+    try {
+        // イベントを処理する関数を呼び出す
+        await Promise.all(bot(events, appContext));
+    } catch (e) {
+        error('返信処理でエラーが発生しました: ${e}');
+    }
+
+    return response;
 };
 
 
