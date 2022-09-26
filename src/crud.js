@@ -4,7 +4,7 @@ const { TABLE_NAME } = process.env;
 export const createData = (userId, dataType, data, appContext) => {
   // パラメータを作成
   const param = {
-    TableName = TABLE_NAME;
+    TableName: TABLE_NAME,
     Item: {
       ID: userId,
       DataType: dataType,
@@ -24,8 +24,10 @@ export const readData = (userId, dataType, appContext) => {
       ":u": userId,
       ":d": dataType,
     },
-    KeyConditionExpression: 'ID = :u and DataType = :d',
+    KeyConditionExpression: "ID = :u and DataType = :d",
   };
+
+  return appContext.dynamoDBContext.query(param);
 };
 
 // データ更新
@@ -38,12 +40,12 @@ export const updateData = (userId, dataType, data, appContext) => {
       DataType: dataType,
     },
     ExprerssionAttributeValues: {
-      ':d': data,
+      ":d": data,
     },
     ExpressionAttributeNames: {
-      '#d': 'Data',
+      "#d": "Data",
     },
-    UpdateExpression: 'set #d = :d'
+    UpdateExpression: "set #d = :d",
   };
 
   // DynamoDBへデータを更新
@@ -64,7 +66,3 @@ export const deleteData = (userId, dataType, appContext) => {
   // DynamoDBへデータを削除
   return appContext.dynamoDBContext.delete(param);
 };
-
-
-
-
