@@ -39,7 +39,7 @@ export const updateData = (userId, dataType, data, appContext) => {
       ID: userId,
       DataType: dataType,
     },
-    ExprerssionAttributeValues: {
+    ExpressionAttributeValues: {
       ":d": data,
     },
     ExpressionAttributeNames: {
@@ -49,6 +49,7 @@ export const updateData = (userId, dataType, data, appContext) => {
   };
 
   // DynamoDBへデータを更新
+  console.log(param);
   return appContext.dynamoDBContext.update(param);
 };
 

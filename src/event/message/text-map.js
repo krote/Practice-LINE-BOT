@@ -1,5 +1,5 @@
-import { get } from "../../request.js";
-import { createData, deleteData, updateData, readData } from "../../crud.js";
+import { get } from '../../request.js';
+import { createData, deleteData, updateData, readData } from '../../crud.js';
 
 // ユーザーのプロフィールを取得する関数
 const getUserProfile = (event, client) =>
@@ -8,23 +8,23 @@ const getUserProfile = (event, client) =>
 // 受け取ったメッセージと返信するメッセージ(を返す関数)をマッピング
 export const messageMap = {
   こんにちは: () => ({
-    type: "text",
-    text: "こんにちは、世界",
+    type: 'text',
+    text: 'こんにちは、世界',
   }),
   おはよう: () => ({
-    type: "text",
-    text: "Good Morning!",
+    type: 'text',
+    text: 'Good Morning!',
   }),
   天気予報: async () => {
     // axiosを使ってAPIにGETリクエストを送り、レスポンスのdataを変数resに格納
     const weatherApiRes = (
       await get(
-        "https://www.jma.go.jp/bosai/forecast/data/forecast/070000.json"
+        'https://www.jma.go.jp/bosai/forecast/data/forecast/070000.json'
       )
     ).data;
     // 返信するメッセージを作成
     return {
-      type: "text",
+      type: 'text',
       text: ` 【天気予報】
       
       ${weatherApiRes[0].timeSeries[0].timeDefines[0]}: ${weatherApiRes[0].timeSeries[0].areas[2].weathers[0]}
@@ -35,355 +35,355 @@ export const messageMap = {
   },
   複数メッセージ: () => [
     {
-      type: "text",
-      text: "Hello, user",
+      type: 'text',
+      text: 'Hello, user',
     },
     {
-      type: "text",
-      text: "May I help you?",
+      type: 'text',
+      text: 'May I help you?',
     },
   ],
   予定: () => ({
-    type: "text",
-    text: "曜日を指定してください",
+    type: 'text',
+    text: '曜日を指定してください',
     quickReply: {
       items: [
         {
-          type: "action",
+          type: 'action',
           action: {
-            type: "message",
-            text: "月曜日の予定",
-            label: "月曜日",
+            type: 'message',
+            text: '月曜日の予定',
+            label: '月曜日',
           },
         },
         {
-          type: "action",
+          type: 'action',
           action: {
-            type: "message",
-            text: "火曜日の予定",
-            label: "火曜日",
+            type: 'message',
+            text: '火曜日の予定',
+            label: '火曜日',
           },
         },
       ],
     },
   }),
   クイックリプライ: () => ({
-    type: "text",
-    text: "クイックリプライ（以下のアクションはクイックリプライ専用で、他のメッセージタイプでは使用できません）",
+    type: 'text',
+    text: 'クイックリプライ（以下のアクションはクイックリプライ専用で、他のメッセージタイプでは使用できません）',
     quickReply: {
       items: [
         {
-          type: "action",
+          type: 'action',
           action: {
-            type: "camera",
-            label: "カメラを開く",
+            type: 'camera',
+            label: 'カメラを開く',
           },
         },
         {
-          type: "action",
+          type: 'action',
           action: {
-            type: "cameraRoll",
-            label: "カメラロールを開く",
+            type: 'cameraRoll',
+            label: 'カメラロールを開く',
           },
         },
         {
-          type: "action",
+          type: 'action',
           action: {
-            type: "location",
-            label: "位置情報画面を開く",
+            type: 'location',
+            label: '位置情報画面を開く',
           },
         },
       ],
     },
   }),
   スタンプメッセージ: () => ({
-    type: "sticker",
-    packageId: "446",
-    stickerId: "1988",
+    type: 'sticker',
+    packageId: '446',
+    stickerId: '1988',
   }),
   画像メッセージ: () => ({
-    type: "image",
-    originalContentUrl: "https://shinbunbun.info/images/photos/7.jpeg",
-    previewImageUrl: "https://shinbunbun.info/images/photos/7.jpeg",
+    type: 'image',
+    originalContentUrl: 'https://shinbunbun.info/images/photos/7.jpeg',
+    previewImageUrl: 'https://shinbunbun.info/images/photos/7.jpeg',
   }),
   音声メッセージ: () => ({
-    type: "audio",
+    type: 'audio',
     originalContentUrl:
-      "https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/demo.m4a?raw=true",
+      'https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/demo.m4a?raw=true',
     duration: 6000,
   }),
   動画メッセージ: () => ({
-    type: "video",
+    type: 'video',
     originalContentUrl:
-      "https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/demo.mp4?raw=true",
+      'https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/demo.mp4?raw=true',
     previewImageUrl:
-      "https://raw.githubusercontent.com/shinbunbun/Hands-on-LINEBOT/master/media/thumbnail.jpg?raw=true",
+      'https://raw.githubusercontent.com/shinbunbun/Hands-on-LINEBOT/master/media/thumbnail.jpg?raw=true',
   }),
   位置情報メッセージ: () => ({
-    type: "location",
-    title: "my location",
-    address: "〒160-0004 東京都新宿区四谷一丁目6番1号",
+    type: 'location',
+    title: 'my location',
+    address: '〒160-0004 東京都新宿区四谷一丁目6番1号',
     latitude: 35.687574,
     longitude: 139.72922,
   }),
   イメージマップメッセージ: () => [
     {
-      type: "imagemap",
+      type: 'imagemap',
       baseUrl:
-        "https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/imagemap.png?raw=true",
-      altText: "This is an imagemap",
+        'https://github.com/shinbunbun/Hands-on-LINEBOT/blob/master/media/imagemap.png?raw=true',
+      altText: 'This is an imagemap',
       baseSize: {
         width: 1686,
         height: 948,
       },
       actions: [
         {
-          type: "uri",
+          type: 'uri',
           area: {
             x: 590,
             y: 179,
             width: 511,
             height: 585,
           },
-          linkUri: "https://shinbunbun.info/about/",
+          linkUri: 'https://shinbunbun.info/about/',
         },
         {
-          type: "message",
+          type: 'message',
           area: {
             x: 0,
             y: 0,
             width: 458,
             height: 948,
           },
-          text: "しんぶんぶん！！！",
+          text: 'しんぶんぶん！！！',
         },
         {
-          type: "message",
+          type: 'message',
           area: {
             x: 1230,
             y: 0,
             width: 456,
             height: 948,
           },
-          text: "しんぶんぶん！！！",
+          text: 'しんぶんぶん！！！',
         },
       ],
     },
     {
-      type: "text",
-      text: "画像の色々なところをタップしてみよう！",
+      type: 'text',
+      text: '画像の色々なところをタップしてみよう！',
     },
   ],
   ボタンテンプレート: () => ({
-    type: "template",
-    altText: "ボタンテンプレート",
+    type: 'template',
+    altText: 'ボタンテンプレート',
     template: {
-      type: "buttons",
-      thumbnailImageUrl: "https://shinbunbun.info/images/photos/7.jpeg",
-      imageAspectRatio: "rectangle",
-      imageSize: "cover",
-      imageBackgroundColor: "#FFFFFF",
-      title: "ボタンテンプレート",
-      text: "ボタンだお",
+      type: 'buttons',
+      thumbnailImageUrl: 'https://shinbunbun.info/images/photos/7.jpeg',
+      imageAspectRatio: 'rectangle',
+      imageSize: 'cover',
+      imageBackgroundColor: '#FFFFFF',
+      title: 'ボタンテンプレート',
+      text: 'ボタンだお',
       defaultAction: {
-        type: "uri",
-        label: "View detail",
-        uri: "https://shinbunbun.info/images/photos/",
+        type: 'uri',
+        label: 'View detail',
+        uri: 'https://shinbunbun.info/images/photos/',
       },
       actions: [
         {
-          type: "postback",
-          label: "ポストバックアクション",
-          data: "button-postback",
+          type: 'postback',
+          label: 'ポストバックアクション',
+          data: 'button-postback',
         },
         {
-          type: "message",
-          label: "メッセージアクション",
-          text: "button-message",
+          type: 'message',
+          label: 'メッセージアクション',
+          text: 'button-message',
         },
         {
-          type: "uri",
-          label: "URIアクション",
-          uri: "https://shinbunbun.info/",
+          type: 'uri',
+          label: 'URIアクション',
+          uri: 'https://shinbunbun.info/',
         },
         {
-          type: "datetimepicker",
-          label: "日時選択アクション",
-          data: "button-date",
-          mode: "datetime",
-          initial: "2021-06-01t00:00",
-          max: "2022-12-31t23:59",
-          min: "2021-06-01t00:00",
+          type: 'datetimepicker',
+          label: '日時選択アクション',
+          data: 'button-date',
+          mode: 'datetime',
+          initial: '2021-06-01t00:00',
+          max: '2022-12-31t23:59',
+          min: '2021-06-01t00:00',
         },
       ],
     },
   }),
   確認テンプレート: () => ({
-    type: "template",
-    altText: "確認テンプレート",
+    type: 'template',
+    altText: '確認テンプレート',
     template: {
-      type: "confirm",
-      text: "確認テンプレート",
+      type: 'confirm',
+      text: '確認テンプレート',
       actions: [
         {
-          type: "message",
-          label: "はい",
-          text: "yes",
+          type: 'message',
+          label: 'はい',
+          text: 'yes',
         },
         {
-          type: "message",
-          label: "いいえ",
-          text: "no",
+          type: 'message',
+          label: 'いいえ',
+          text: 'no',
         },
       ],
     },
   }),
   カルーセルテンプレート: () => ({
-    type: "template",
-    altText: "カルーセルテンプレート",
+    type: 'template',
+    altText: 'カルーセルテンプレート',
     template: {
-      type: "carousel",
+      type: 'carousel',
       columns: [
         {
-          thumbnailImageUrl: "https://shinbunbun.info/images/photos/7.jpeg",
-          imageBackgroundColor: "#FFFFFF",
-          title: "タイトル1",
-          text: "説明1",
+          thumbnailImageUrl: 'https://shinbunbun.info/images/photos/7.jpeg',
+          imageBackgroundColor: '#FFFFFF',
+          title: 'タイトル1',
+          text: '説明1',
           defaultAction: {
-            type: "uri",
-            label: "View detail",
-            uri: "https://shinbunbun.info/",
+            type: 'uri',
+            label: 'View detail',
+            uri: 'https://shinbunbun.info/',
           },
           actions: [
             {
-              type: "postback",
-              label: "ポストバック",
-              data: "postback-carousel-1",
+              type: 'postback',
+              label: 'ポストバック',
+              data: 'postback-carousel-1',
             },
             {
-              type: "uri",
-              label: "URIアクション",
-              uri: "https://shinbunbun.info/",
+              type: 'uri',
+              label: 'URIアクション',
+              uri: 'https://shinbunbun.info/',
             },
           ],
         },
         {
-          thumbnailImageUrl: "https://shinbunbun.info/images/photos/10.jpeg",
-          imageBackgroundColor: "#FFFFFF",
-          title: "タイトル2",
-          text: "説明2",
+          thumbnailImageUrl: 'https://shinbunbun.info/images/photos/10.jpeg',
+          imageBackgroundColor: '#FFFFFF',
+          title: 'タイトル2',
+          text: '説明2',
           defaultAction: {
-            type: "uri",
-            label: "View detail",
-            uri: "https://shinbunbun.info/",
+            type: 'uri',
+            label: 'View detail',
+            uri: 'https://shinbunbun.info/',
           },
           actions: [
             {
-              type: "postback",
-              label: "ポストバック",
-              data: "postback-carousel-2",
+              type: 'postback',
+              label: 'ポストバック',
+              data: 'postback-carousel-2',
             },
             {
-              type: "uri",
-              label: "URIアクション",
-              uri: "https://shinbunbun.info/",
+              type: 'uri',
+              label: 'URIアクション',
+              uri: 'https://shinbunbun.info/',
             },
           ],
         },
       ],
-      imageAspectRatio: "rectangle",
-      imageSize: "cover",
+      imageAspectRatio: 'rectangle',
+      imageSize: 'cover',
     },
   }),
   画像カルーセルテンプレート: () => ({
-    type: "template",
-    altText: "画像カルーセルテンプレート",
+    type: 'template',
+    altText: '画像カルーセルテンプレート',
     template: {
-      type: "image_carousel",
+      type: 'image_carousel',
       columns: [
         {
-          imageUrl: "https://shinbunbun.info/images/photos/4.jpeg",
+          imageUrl: 'https://shinbunbun.info/images/photos/4.jpeg',
           action: {
-            type: "postback",
-            label: "ポストバック",
-            data: "image-carousel-1",
+            type: 'postback',
+            label: 'ポストバック',
+            data: 'image-carousel-1',
           },
         },
         {
-          imageUrl: "https://shinbunbun.info/images/photos/5.jpeg",
+          imageUrl: 'https://shinbunbun.info/images/photos/5.jpeg',
           action: {
-            type: "message",
-            label: "メッセージ",
-            text: "いえい",
+            type: 'message',
+            label: 'メッセージ',
+            text: 'いえい',
           },
         },
         {
-          imageUrl: "https://shinbunbun.info/images/photos/7.jpeg",
+          imageUrl: 'https://shinbunbun.info/images/photos/7.jpeg',
           action: {
-            type: "uri",
-            label: "URIアクション",
-            uri: "https://shinbunbun.info/",
+            type: 'uri',
+            label: 'URIアクション',
+            uri: 'https://shinbunbun.info/',
           },
         },
       ],
     },
   }),
   名刺: () => ({
-    type: "flex",
-    altText: "Flex Message",
+    type: 'flex',
+    altText: 'Flex Message',
     contents: {
-      type: "bubble",
+      type: 'bubble',
       header: {
-        type: "box",
-        layout: "vertical",
+        type: 'box',
+        layout: 'vertical',
         contents: [
           {
-            type: "text",
-            text: "ひきがえる",
-            color: "#FFFFFF",
+            type: 'text',
+            text: 'ひきがえる',
+            color: '#FFFFFF',
           },
         ],
       },
       hero: {
-        type: "image",
-        url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-        size: "xl",
+        type: 'image',
+        url: 'https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png',
+        size: 'xl',
       },
       body: {
-        type: "box",
-        layout: "vertical",
+        type: 'box',
+        layout: 'vertical',
         contents: [
           {
-            type: "box",
-            layout: "vertical",
+            type: 'box',
+            layout: 'vertical',
             contents: [
               {
-                type: "text",
-                text: "hello, world",
+                type: 'text',
+                text: 'hello, world',
               },
               {
-                type: "separator",
-                margin: "md",
+                type: 'separator',
+                margin: 'md',
               },
               {
-                type: "button",
+                type: 'button',
                 action: {
-                  type: "datetimepicker",
-                  label: "action",
-                  data: "hello",
-                  mode: "date",
+                  type: 'datetimepicker',
+                  label: 'action',
+                  data: 'hello',
+                  mode: 'date',
                 },
-                style: "link",
+                style: 'link',
               },
             ],
           },
           {
-            type: "box",
-            layout: "vertical",
+            type: 'box',
+            layout: 'vertical',
             contents: [
               {
-                type: "text",
-                text: "hello, world",
+                type: 'text',
+                text: 'hello, world',
               },
             ],
           },
@@ -391,85 +391,85 @@ export const messageMap = {
       },
       styles: {
         header: {
-          backgroundColor: "#00B900",
+          backgroundColor: '#00B900',
         },
       },
     },
   }),
-  "Flex Message": () => ({
-    type: "flex",
-    altText: "Flex Message",
+  'Flex Message': () => ({
+    type: 'flex',
+    altText: 'Flex Message',
     contents: {
-      type: "bubble",
+      type: 'bubble',
       header: {
-        type: "box",
-        layout: "vertical",
+        type: 'box',
+        layout: 'vertical',
         contents: [
           {
-            type: "text",
-            text: "Flex Message",
-            color: "#FFFFFF",
-            weight: "bold",
+            type: 'text',
+            text: 'Flex Message',
+            color: '#FFFFFF',
+            weight: 'bold',
           },
         ],
       },
       hero: {
-        type: "image",
-        url: "https://pbs.twimg.com/profile_images/1236928986212478976/wDa51i9T_400x400.jpg",
-        size: "xl",
+        type: 'image',
+        url: 'https://pbs.twimg.com/profile_images/1236928986212478976/wDa51i9T_400x400.jpg',
+        size: 'xl',
       },
       body: {
-        type: "box",
-        layout: "vertical",
+        type: 'box',
+        layout: 'vertical',
         contents: [
           {
-            type: "text",
-            text: "しんぶんぶん",
-            size: "xl",
-            weight: "bold",
-            align: "center",
+            type: 'text',
+            text: 'しんぶんぶん',
+            size: 'xl',
+            weight: 'bold',
+            align: 'center',
           },
           {
-            type: "text",
-            text: "会津大学学部二年",
-            align: "center",
+            type: 'text',
+            text: '会津大学学部二年',
+            align: 'center',
           },
           {
-            type: "separator",
-            margin: "md",
+            type: 'separator',
+            margin: 'md',
           },
           {
-            type: "box",
-            layout: "vertical",
+            type: 'box',
+            layout: 'vertical',
             contents: [
               {
-                type: "button",
+                type: 'button',
                 action: {
-                  type: "uri",
-                  label: "ホームページ",
-                  uri: "https://shinbunbun.info/",
+                  type: 'uri',
+                  label: 'ホームページ',
+                  uri: 'https://shinbunbun.info/',
                 },
-                style: "primary",
-                offsetBottom: "10px",
+                style: 'primary',
+                offsetBottom: '10px',
               },
               {
-                type: "button",
+                type: 'button',
                 action: {
-                  type: "uri",
-                  label: "Twitter",
-                  uri: "https://twitter.com/shinbunbun_",
+                  type: 'uri',
+                  label: 'Twitter',
+                  uri: 'https://twitter.com/shinbunbun_',
                 },
-                style: "primary",
-                color: "#1DA1F2",
+                style: 'primary',
+                color: '#1DA1F2',
               },
             ],
-            paddingTop: "10px",
+            paddingTop: '10px',
           },
         ],
       },
       styles: {
         header: {
-          backgroundColor: "#008282",
+          backgroundColor: '#008282',
         },
       },
     },
@@ -479,31 +479,31 @@ export const messageMap = {
     const profile = await getUserProfile(event, appContext.lineClient);
     // 返信するメッセージを作成
     return {
-      type: "text",
+      type: 'text',
       text: `あなたの名前: ${profile.displayName}\nユーザーID: ${profile.userId}\nプロフィール画像のURL: ${profile.pictureUrl}\nステータスメッセージ: ${profile.statusMessage}`,
     };
   },
   ここはどこ: (event) => ({
-    type: "text",
+    type: 'text',
     text: `ここは${event.source.type}だよ！`,
   }),
   Create: async (event, appContext) => {
     const date = new Date();
     await createData(
       event.source.userId,
-      "testData",
+      'testData',
       `Data created at ${date}`,
       appContext
     );
     return {
-      type: "text",
-      text: "データが作成されました",
+      type: 'text',
+      text: 'データが作成されました',
     };
   },
   Read: async (event, appContext) => {
-    const dbData = await readData(event.source.userId, "testData", appContext);
+    const dbData = await readData(event.source.userId, 'testData', appContext);
     return {
-      type: "text",
+      type: 'text',
       text: `DBには以下のデータが保存されています\n\n${dbData.Items[0].Data}`,
     };
   },
@@ -511,20 +511,40 @@ export const messageMap = {
     const date = new Date();
     await updateData(
       event.source.userId,
-      "testData",
+      'testData',
       `Data created at ${date}`,
       appContext
     );
     return {
-      type: "text",
-      text: "データを更新しました",
+      type: 'text',
+      text: 'データを更新しました',
     };
   },
   Delete: async (event, appContext) => {
-    await deleteData(event.source.userId, "testData", appContext);
+    await deleteData(event.source.userId, 'testData', appContext);
     return {
-      type: "text",
-      text: "データを削除しました",
+      type: 'text',
+      text: 'データを削除しました',
+    };
+  },
+  メモ開始: async (event, appContext) => {
+    await createData(event.source.userId, 'context', 'memoMode', appContext);
+    return {
+      type: 'text',
+      text: 'メモモードを開始しました',
+    };
+  },
+  メモ: async (event, appContext) => {
+    const memoData = await readData(event.source.userId, 'memo', appContext);
+    if (memoData.Items[0]) {
+      return {
+        type: 'text',
+        text: `メモには以下のメッセージが保存されています\n\n${memoData.Items[0].Data}`,
+      };
+    }
+    return {
+      type: 'text',
+      text: 'メモが存在しません',
     };
   },
 };

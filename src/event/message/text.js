@@ -1,8 +1,15 @@
 import { hasKey } from '../../haskey.js';
 import { messageMap } from './text-map.js';
+import { contextManage } from './context-manage.js';
 
 // テキストメッセージの処理をする関数
 export const textEvent = async (event, appContext) => {
+  // contextが存在した場合は対応するメッセージが帰ってきて、存在しない場合はundefinedが帰ってくる
+  const contextManageResult = await contextManage(event, appContext);
+  if (contextManageResult) {
+    return contextManageResult;
+  }
+
   // ユーザーから送られてきたメッセージ
   const receivedMessage = event.message.text;
 
