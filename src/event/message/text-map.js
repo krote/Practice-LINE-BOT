@@ -1,5 +1,7 @@
 import { get } from '../../request.js';
 import { createData, deleteData, updateData, readData } from '../../crud.js';
+import { readNews } from './news-manage.js';
+import { error } from '../../log.js';
 
 // ユーザーのプロフィールを取得する関数
 const getUserProfile = (event, client) =>
@@ -546,5 +548,77 @@ export const messageMap = {
       type: 'text',
       text: 'メモが存在しません',
     };
+  },
+  /*  ニュース: async (event, appContext) => {
+    const newsData = await readNews();
+    console.log('data: ' + newsData.articles[0].title);
+    if (newsData.articles.length > 0) {
+      return {
+        type: 'text',
+        text: `${newsData.articles[0].title}\n${newsData.articles[0].description}...\n url:${newsData.articles[0].url}`,
+      };
+    }
+  },*/
+  ニュース: async (event, appContext) => {
+    const newsData = await readNews();
+    const response_message = {
+      type: 'flex',
+      altText: 'ニュース一覧',
+      contents: {
+        type: 'carousel',
+        contents: [],
+      },
+    };
+    newsData.articles.forEach((news) => {
+      const one_news = {
+        type: 'bubble',
+        hero: {
+          type: 'image',
+          url:
+            news.urlToImage === null
+              ? 'https://raw.githubusercontent.com/shinbunbun/aizuhack-bot/master/media/imagemap.png'
+              : news.urlToImage,
+          size: 'full',
+          aspectMode: 'cover',
+        },
+        body: {
+          type: 'box',
+          layout: 'vertical',
+          contents: [
+            {
+              type: 'text',
+              text: news.title === null ? 'no title' : news.title,
+              size: 'sm',
+              weight: 'bold',
+              align: 'center',
+              wrap: true,
+            },
+            {
+              type: 'text',
+              text:
+                news.description === null
+                  ? 'no description'
+                  : news.description.substring(0, 100),
+              size: 'sm',
+              weight: 'bold',
+              align: 'center',
+              wrap: true,
+            },
+            {
+              type: 'text',
+              text: news.author === null ? 'no author' : news.author,
+              weight: 'bold',
+              align: 'center',
+            },
+            {
+              type: 'separator',
+              margin: 'md',
+            },
+          ],
+        },
+      };
+      response_message.contents.contents.push(one_news);
+    });
+    return response_message;
   },
 };
