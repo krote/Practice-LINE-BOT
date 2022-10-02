@@ -3,7 +3,7 @@ service: techbookfest13-code
 # dotenv を使用する設定
 useDotenv: true
 
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   name: aws
@@ -16,21 +16,21 @@ provider:
         # DynamoDBへのアクセス許可
         - Effect: Allow
           Action:
-            - "dynamodb:PutItem"
-            - "dynamodb:Query"
-            - "dynamodb:UpdateItem"
-            - "dynamodb:DeleteItem"
+            - 'dynamodb:PutItem'
+            - 'dynamodb:Query'
+            - 'dynamodb:UpdateItem'
+            - 'dynamodb:DeleteItem'
           Resource:
-            - "Fn::GetAtt": [HandsOnLineBotTable, Arn]
+            - 'Fn::GetAtt': [HandsOnLineBotTable, Arn]
         # S3へのアクセス許可
         - Effect: Allow
           Action:
-            - "s3:PutObject"
+            - 's3:PutObject'
           Resource:
-            - "Fn::GetAtt": [HandsOnLineBotBucket, Arn]
+            - 'Fn::GetAtt': [HandsOnLineBotBucket, Arn]
 
 custom:
-  bucketName: practice-line-bot-20220920
+  bucketName: practice-line-bot-20221001a
   tableName: HandsOnLineBot
 
 # Lambdaの設定
@@ -40,10 +40,10 @@ functions:
     # API Gatewayの設定
     events:
       - http:
-        path: webhook
-        method: post
-        # 非同期呼び出しを有効化
-        async: true
+          path: webhook
+          method: post
+          # 非同期呼び出しを有効化
+          async: true
     # 環境変数を設定
     environment:
       CHANNEL_ACCESS_TOKEN: ${env:CHANNEL_ACCESS_TOKEN}
@@ -76,7 +76,7 @@ resources:
     HandsOnLineBotBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self.custom.bucketName}
+        BucketName: ${self:custom.bucketName}
         PublicAccessBlockConfiguration:
           BlockPublicAcls: true
           BlockPublicPolicy: true
@@ -88,13 +88,13 @@ resources:
       Properties:
         Bucket: ${self:custom.bucketName}
         PolicyDocument:
-          Version: "2012-10-17"
+          Version: '2012-10-17'
           Statement:
             - Action:
-                - "s3:PutObject"
+                - 's3:PutObject'
               Effect: Allow
               Resource:
                 - arn:aws:s3:::${self:custom.bucketName}/*
               Principal:
                 AWS:
-                  - "Fn::GetAtt": [IamRoleLambdaExecution, Arn]
+                  - 'Fn::GetAtt': [IamRoleLambdaExecution, Arn]
