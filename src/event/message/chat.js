@@ -1,4 +1,3 @@
-import res from 'express/lib/response.js';
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
@@ -7,8 +6,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // テキストメッセージの処理をする関数
-export const chatEvent = async (event, appContext) => {
-  console.log('chat event happen');
+export const chatEvent = async (event) => {
   const receivedMessage = event.message.text;
   const completion = await openai.createCompletion({
     model: 'text-davinci-003',

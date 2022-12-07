@@ -49,7 +49,6 @@ export const updateData = (userId, dataType, data, appContext) => {
   };
 
   // DynamoDBへデータを更新
-  console.log(param);
   return appContext.dynamoDBContext.update(param);
 };
 

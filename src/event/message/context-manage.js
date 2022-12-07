@@ -1,5 +1,7 @@
 import {
-  createData, deleteData, updateData, readData,
+  createData,
+  deleteData,
+  /* updateData, */ readData,
 } from '../../crud.js';
 import { hasKey } from '../../haskey.js';
 

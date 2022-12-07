@@ -556,13 +556,14 @@ export const messageMap = {
     if (newsData.articles.length > 0) {
       return {
         type: 'text',
-        text: `${newsData.articles[0].title}\n${newsData.articles[0].description}...\n url:${newsData.articles[0].url}`,
+        text: `${newsData.articles[0].title}\n${newsData.articles[0].description}...\n
+          url:${newsData.articles[0].url}`,
       };
     }
   }, */
   ニュース: async (event, appContext) => {
     const newsData = await readNews();
-    const response_message = {
+    const responseMessage = {
       type: 'flex',
       altText: 'ニュース一覧',
       contents: {
@@ -571,7 +572,7 @@ export const messageMap = {
       },
     };
     newsData.articles.forEach((news) => {
-      const one_news = {
+      const oneNews = {
         type: 'bubble',
         hero: {
           type: 'image',
@@ -618,8 +619,8 @@ export const messageMap = {
           ],
         },
       };
-      response_message.contents.contents.push(one_news);
+      responseMessage.contents.contents.push(oneNews);
     });
-    return response_message;
+    return responseMessage;
   },
 };

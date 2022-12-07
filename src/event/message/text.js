@@ -16,7 +16,7 @@ export const textEvent = async (event, appContext) => {
 
   // 送られてきたメッセージに応じて返信するメッセージを取得してreturn
   if (hasKey(messageMap, receivedMessage)) {
-    return messageMap[receivedMessage](event, appContext);
+    return messageMap[receivedMessage](event);
   }
   return chatEvent(event, appContext);
 };

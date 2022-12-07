@@ -4,7 +4,7 @@ import line from '@line/bot-sdk';
 import { AppContext } from '../app-context.js';
 import { bot } from '../bot.js';
 import { error, log } from '../log.js';
-import { DynamoDbContext } from '../db.js';
+import { DynamoDBContext } from '../db.js';
 import { saveContentFileToS3DownloadDir } from '../save-file.js';
 
 const { CHANNEL_SECRET } = process.env;
@@ -12,7 +12,9 @@ const { CHANNEL_ACCESS_TOKEN } = process.env;
 
 // 署名検証をする関数
 const verifySignature = (event) => {
-  const signature = createHmac('sha256', CHANNEL_SECRET).update(JSON.stringify(event.body)).digest('base64');
+  const signature = createHmac('sha256', CHANNEL_SECRET)
+    .update(JSON.stringify(event.body))
+    .digest('base64');
   const signatureHeader = event.hearders['x-line-signature'];
   return signature === signatureHeader;
 };
@@ -37,7 +39,7 @@ export const webhookHandler = async (event) => {
   const dynamoDocument = new DynamoDB.DocumentClient();
 
   // DynamoDBのContextを作成
-  const dynamoDBContext = new DynamoDbContext(dynamoDocument);
+  const dynamoDBContext = new DynamoDBContext(dynamoDocument);
 
   // bot-sdkのクライアントを作成
   const lineClient = new line.Client({

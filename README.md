@@ -5,3 +5,5 @@ readme
 2. npx ngrok http 3000
    run ngrok forwarding url
    please copy url to line developer webhook url
+3. docker compose up
+   run AWS Dynamodb local
