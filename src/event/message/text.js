@@ -1,6 +1,7 @@
 import { hasKey } from '../../haskey.js';
 import { messageMap } from './text-map.js';
 import { contextManage } from './context-manage.js';
+import { chatEvent } from './chat.js';
 
 // テキストメッセージの処理をする関数
 export const textEvent = async (event, appContext) => {
@@ -17,10 +18,5 @@ export const textEvent = async (event, appContext) => {
   if (hasKey(messageMap, receivedMessage)) {
     return messageMap[receivedMessage](event, appContext);
   }
-
-  // 返信するメッセージが存在しない場合
-  return {
-    type: 'text',
-    text: `受け取ったメッセージ: ${receivedMessage}\nそのメッセージの返信には対応してません...`,
-  };
+  return chatEvent(event, appContext);
 };

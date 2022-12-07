@@ -1,4 +1,6 @@
-import { createData, deleteData, updateData, readData } from '../../crud.js';
+import {
+  createData, deleteData, updateData, readData,
+} from '../../crud.js';
 import { hasKey } from '../../haskey.js';
 
 const contextMap = {
@@ -7,7 +9,7 @@ const contextMap = {
       event.source.userId,
       'memo',
       event.message.text,
-      appContext
+      appContext,
     );
     await deleteData(event.source.userId, 'context', appContext);
 

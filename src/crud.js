@@ -21,10 +21,10 @@ export const readData = (userId, dataType, appContext) => {
   const param = {
     TableName: TABLE_NAME,
     ExpressionAttributeValues: {
-      ":u": userId,
-      ":d": dataType,
+      ':u': userId,
+      ':d': dataType,
     },
-    KeyConditionExpression: "ID = :u and DataType = :d",
+    KeyConditionExpression: 'ID = :u and DataType = :d',
   };
 
   return appContext.dynamoDBContext.query(param);
@@ -40,12 +40,12 @@ export const updateData = (userId, dataType, data, appContext) => {
       DataType: dataType,
     },
     ExpressionAttributeValues: {
-      ":d": data,
+      ':d': data,
     },
     ExpressionAttributeNames: {
-      "#d": "Data",
+      '#d': 'Data',
     },
-    UpdateExpression: "set #d = :d",
+    UpdateExpression: 'set #d = :d',
   };
 
   // DynamoDBへデータを更新

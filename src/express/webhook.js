@@ -1,11 +1,11 @@
 // モジュール読み込み
-import line from "@line/bot-sdk";
-import aws from "aws-sdk";
-import { error, log } from "../log.js";
-import { bot } from "../bot.js";
-import { DynamoDBContext } from "../db.js";
-import { AppContext } from "../app-context.js";
-import { saveContentFileToDownloadDir } from "../save-file.js";
+import line from '@line/bot-sdk';
+import aws from 'aws-sdk';
+import { error, log } from '../log.js';
+import { bot } from '../bot.js';
+import { DynamoDBContext } from '../db.js';
+import { AppContext } from '../app-context.js';
+import { saveContentFileToDownloadDir } from '../save-file.js';
 
 const { CHANNEL_ACCESS_TOKEN } = process.env;
 
@@ -18,8 +18,8 @@ export const webhook = (req, res) => {
 
   // DynamoDB DocumentClientのインスタンスを生成
   const dynamoDocument = new aws.DynamoDB.DocumentClient({
-    endpoint: "http://localhost:8000",
-    region: "ap-northeast-1",
+    endpoint: 'http://localhost:8000',
+    region: 'ap-northeast-1',
   });
 
   // DynamoDB Contextを作成
@@ -45,5 +45,5 @@ export const webhook = (req, res) => {
     error(`返信処理でエラーが発生しました: ${err}`);
   });
 
-  return res.json("ok");
+  return res.json('ok');
 };

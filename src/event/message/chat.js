@@ -18,8 +18,9 @@ export const chatEvent = async (event, appContext) => {
     frequency_penalty: 0,
     presence_penalty: 0.6,
   });
+  const responseMessage = completion.data.choices[0].text.trim();
   return {
     type: 'text',
-    text: completion.data.choices[0].text,
+    text: responseMessage,
   };
 };
