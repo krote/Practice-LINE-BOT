@@ -7,6 +7,7 @@ import { locationEvent } from './message/location.js';
 import { stickerEvent } from './message/sticker.js';
 import { textEvent } from './message/text.js';
 import { videoEvent } from './message/video.js';
+import { chatEvent } from './message/chat.js';
 
 // メッセージタイプとHandler関数の対応オブジェクトを作成
 const eventHandlers = {
@@ -15,7 +16,8 @@ const eventHandlers = {
   image: imageEvent,
   location: locationEvent,
   sticker: stickerEvent,
-  text: textEvent,
+  //  text: textEvent,
+  text: chatEvent,
   video: videoEvent,
 };
 
