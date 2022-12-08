@@ -1,12 +1,10 @@
 import { get } from '../../request.js';
-import {
-  createData, deleteData, updateData, readData,
-} from '../../crud.js';
+import { createData, deleteData, updateData, readData } from '../../crud.js';
 import { readNews } from './news-manage.js';
-import { error } from '../../log.js';
 
 // ユーザーのプロフィールを取得する関数
-const getUserProfile = (event, client) => client.getProfile(event.source.userId);
+const getUserProfile = (event, client) =>
+  client.getProfile(event.source.userId);
 
 // 受け取ったメッセージと返信するメッセージ(を返す関数)をマッピング
 export const messageMap = {
@@ -22,7 +20,7 @@ export const messageMap = {
     // axiosを使ってAPIにGETリクエストを送り、レスポンスのdataを変数resに格納
     const weatherApiRes = (
       await get(
-        'https://www.jma.go.jp/bosai/forecast/data/forecast/070000.json',
+        'https://www.jma.go.jp/bosai/forecast/data/forecast/070000.json'
       )
     ).data;
     // 返信するメッセージを作成
@@ -496,7 +494,7 @@ export const messageMap = {
       event.source.userId,
       'testData',
       `Data created at ${date}`,
-      appContext,
+      appContext
     );
     return {
       type: 'text',
@@ -516,7 +514,7 @@ export const messageMap = {
       event.source.userId,
       'testData',
       `Data created at ${date}`,
-      appContext,
+      appContext
     );
     return {
       type: 'text',
